@@ -1,7 +1,25 @@
 
-import React, { useState } from 'react';
+import React, { useState, createContext, useContext } from 'react';
 import { cn } from '../../lib/utils';
 import { TypographyVariant, ResponsiveTypography } from '../../tokens/typography';
+
+// Create a context for theme sharing
+const HeadingThemeContext = createContext<{
+  theme: 'default' | 'muted' | 'accent';
+  setTheme: (theme: 'default' | 'muted' | 'accent') => void;
+}>({
+  theme: 'default',
+  setTheme: () => {},
+});
+
+export const HeadingThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [theme, setTheme] = useState<'default' | 'muted' | 'accent'>('default');
+  return (
+    <HeadingThemeContext.Provider value={{ theme, setTheme }}>
+      {children}
+    </HeadingThemeContext.Provider>
+  );
+};
 
 export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   level: 1 | 2 | 3 | 4 | 5 | 6;
@@ -23,7 +41,7 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
       className,
       trimTop = false,
       trimBottom = false,
-      theme: initialTheme = 'default',
+      theme: propTheme,
       toggleTheme = false,
       lightweight = false,
       children,
@@ -32,7 +50,7 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     },
     ref
   ) => {
-    const [currentTheme, setCurrentTheme] = useState(initialTheme);
+    const { theme: contextTheme, setTheme } = useContext(HeadingThemeContext);
     
     // Get the correct heading element based on level
     const Component = `h${level}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -70,32 +88,27 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     const handleThemeToggle = () => {
       if (toggleTheme) {
         const themes: Array<'default' | 'muted' | 'accent'> = ['default', 'muted', 'accent'];
-        const currentIndex = themes.indexOf(currentTheme);
+        const currentIndex = themes.indexOf(propTheme || contextTheme);
         const nextIndex = (currentIndex + 1) % themes.length;
-        setCurrentTheme(themes[nextIndex]);
+        setTheme(themes[nextIndex]);
       }
     };
+
+    // Use prop theme if provided, otherwise use context theme
+    const currentTheme = propTheme || contextTheme;
 
     return (
       <Component
         ref={ref}
         className={cn(
-          // Base sizing
           fontSizeClasses[`h${level}`],
-          // Apply default styles based on level if variant not specified
           !variant && `text-heading-${defaultVariant}`,
-          // Apply variant if specified
           variant && `text-${variant}`,
-          // Theme styles
           themeClasses[currentTheme],
-          // If lightweight, override font weight
           lightweight && 'font-normal',
-          // Apply margin trim classes
           trimTop && 'mt-0',
           trimBottom && 'mb-0',
-          // Apply responsive classes
           ...responsiveClasses,
-          // Add cursor-pointer if theme is toggleable
           toggleTheme && 'cursor-pointer',
           className
         )}
@@ -114,4 +127,3 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
 Heading.displayName = 'Heading';
 
 export default Heading;
-

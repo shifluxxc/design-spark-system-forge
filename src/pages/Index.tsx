@@ -59,37 +59,39 @@ const DesignSystemShowcase = () => {
         <section className="mb-16">
           <Heading level={2} className="mb-6 pb-2 border-b">Typography</Heading>
           
-          <div className="grid gap-6 mb-8">
-            <div>
-              <Heading level={1}>Heading 1</Heading>
-              <Paragraph variant="body-sm" theme="muted" className="mt-1">2rem / 32px with font-weight: 700</Paragraph>
+          <HeadingThemeProvider>
+            <div className="grid gap-6 mb-8">
+              <div>
+                <Heading level={1} toggleTheme>Heading 1</Heading>
+                <Paragraph variant="body-sm" theme="muted" className="mt-1">2rem / 32px with font-weight: 700</Paragraph>
+              </div>
+              
+              <div>
+                <Heading level={2} toggleTheme>Heading 2</Heading>
+                <Paragraph variant="body-sm" theme="muted" className="mt-1">1.75rem / 28px with font-weight: 700</Paragraph>
+              </div>
+              
+              <div>
+                <Heading level={3} toggleTheme>Heading 3</Heading>
+                <Paragraph variant="body-sm" theme="muted" className="mt-1">1.5rem / 24px with font-weight: 600</Paragraph>
+              </div>
+              
+              <div>
+                <Heading level={4} toggleTheme>Heading 4</Heading>
+                <Paragraph variant="body-sm" theme="muted" className="mt-1">1.25rem / 20px with font-weight: 600</Paragraph>
+              </div>
+              
+              <div>
+                <Heading level={5} toggleTheme>Heading 5</Heading>
+                <Paragraph variant="body-sm" theme="muted" className="mt-1">1.125rem / 18px with font-weight: 600</Paragraph>
+              </div>
+              
+              <div>
+                <Heading level={6} toggleTheme>Heading 6</Heading>
+                <Paragraph variant="body-sm" theme="muted" className="mt-1">1rem / 16px with font-weight: 600</Paragraph>
+              </div>
             </div>
-            
-            <div>
-              <Heading level={2}>Heading 2</Heading>
-              <Paragraph variant="body-sm" theme="muted" className="mt-1">1.75rem / 28px with font-weight: 700</Paragraph>
-            </div>
-            
-            <div>
-              <Heading level={3}>Heading 3</Heading>
-              <Paragraph variant="body-sm" theme="muted" className="mt-1">1.5rem / 24px with font-weight: 600</Paragraph>
-            </div>
-            
-            <div>
-              <Heading level={4}>Heading 4</Heading>
-              <Paragraph variant="body-sm" theme="muted" className="mt-1">1.25rem / 20px with font-weight: 600</Paragraph>
-            </div>
-            
-            <div>
-              <Heading level={5}>Heading 5</Heading>
-              <Paragraph variant="body-sm" theme="muted" className="mt-1">1.125rem / 18px with font-weight: 600</Paragraph>
-            </div>
-            
-            <div>
-              <Heading level={6}>Heading 6</Heading>
-              <Paragraph variant="body-sm" theme="muted" className="mt-1">1rem / 16px with font-weight: 600</Paragraph>
-            </div>
-          </div>
+          </HeadingThemeProvider>
           
           <div className="grid gap-6">
             <div>
@@ -108,7 +110,7 @@ const DesignSystemShowcase = () => {
             </div>
           </div>
         </section>
-
+        
         {/* Form Components Section */}
         <section className="mb-16">
           <Heading level={2} className="mb-6 pb-2 border-b">Form Components</Heading>
