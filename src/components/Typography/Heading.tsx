@@ -40,7 +40,7 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     ref
   ) => {
     // Get the correct heading element based on level
-    const Component = `h${level}` as keyof JSX.IntrinsicElements;
+    const Component = `h${level}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
     // Map level to appropriate default variant if not overridden
     const defaultVariant = `h${level}` as TypographyVariant;
@@ -52,16 +52,15 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
       accent: 'text-primary',
     };
 
-    // Apply responsive classes
-    const responsiveClasses = responsive
-      ? [
-          responsive.base && `text-${responsive.base}`,
-          responsive.sm && `sm:text-${responsive.sm}`,
-          responsive.md && `md:text-${responsive.md}`,
-          responsive.lg && `lg:text-${responsive.lg}`,
-          responsive.xl && `xl:text-${responsive.xl}`,
-        ].filter(Boolean)
-      : [];
+    // Create responsive classes array
+    const responsiveClasses: string[] = [];
+    if (responsive) {
+      if (responsive.base) responsiveClasses.push(`text-${responsive.base}`);
+      if (responsive.sm) responsiveClasses.push(`sm:text-${responsive.sm}`);
+      if (responsive.md) responsiveClasses.push(`md:text-${responsive.md}`);
+      if (responsive.lg) responsiveClasses.push(`lg:text-${responsive.lg}`);
+      if (responsive.xl) responsiveClasses.push(`xl:text-${responsive.xl}`);
+    }
 
     return (
       <Component
