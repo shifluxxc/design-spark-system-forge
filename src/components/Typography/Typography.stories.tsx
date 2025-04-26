@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Heading from './Heading';
 import Paragraph from './Paragraph';
@@ -139,6 +138,33 @@ ResponsiveHeadings.parameters = {
   docs: {
     description: {
       story: 'Headings can respond to different viewport sizes by changing their size.',
+    },
+  },
+};
+
+export const HeadingWithThemeToggle = () => {
+  return (
+    <div className="space-y-6">
+      <div>
+        <Heading level={2} toggleTheme>
+          Click me to toggle theme
+        </Heading>
+        <Caption>Click the heading above to cycle through themes (default → muted → accent)</Caption>
+      </div>
+      <div>
+        <Heading level={3} theme="muted" toggleTheme>
+          Another toggleable heading
+        </Heading>
+        <Caption>Starting with muted theme</Caption>
+      </div>
+    </div>
+  );
+};
+
+HeadingWithThemeToggle.parameters = {
+  docs: {
+    description: {
+      story: 'Headings can have toggleable themes that cycle through different colors when clicked.',
     },
   },
 };

@@ -1,28 +1,19 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { cn } from '../../lib/utils';
 import { TypographyVariant, ResponsiveTypography } from '../../tokens/typography';
 
 export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
-  /** Heading level from 1-6 */
   level: 1 | 2 | 3 | 4 | 5 | 6;
-  /** Variant to override default styling for the heading level */
   variant?: TypographyVariant;
-  /** Responsive variants for different screen sizes */
   responsive?: ResponsiveTypography;
-  /** Whether to trim margin-top */
   trimTop?: boolean;
-  /** Whether to trim margin-bottom */
   trimBottom?: boolean;
-  /** Theme color variant */
   theme?: 'default' | 'muted' | 'accent';
-  /** Make text weight normal instead of default bold/semibold */
   lightweight?: boolean;
+  toggleTheme?: boolean;
 }
 
-/**
- * Heading component for H1-H6 elements with proper styling and accessibility
- */
 const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   (
     {
@@ -32,13 +23,17 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
       className,
       trimTop = false,
       trimBottom = false,
-      theme = 'default',
+      theme: initialTheme = 'default',
+      toggleTheme = false,
       lightweight = false,
       children,
+      onClick,
       ...props
     },
     ref
   ) => {
+    const [currentTheme, setCurrentTheme] = useState(initialTheme);
+    
     // Get the correct heading element based on level
     const Component = `h${level}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
@@ -52,6 +47,16 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
       accent: 'text-primary',
     };
 
+    // Font size mapping to ensure consistent sizing
+    const fontSizeClasses = {
+      h1: 'text-4xl font-bold',
+      h2: 'text-3xl font-bold',
+      h3: 'text-2xl font-semibold',
+      h4: 'text-xl font-semibold',
+      h5: 'text-lg font-semibold',
+      h6: 'text-base font-semibold',
+    };
+
     // Create responsive classes array
     const responsiveClasses: string[] = [];
     if (responsive) {
@@ -62,16 +67,27 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
       if (responsive.xl) responsiveClasses.push(`xl:text-${responsive.xl}`);
     }
 
+    const handleThemeToggle = () => {
+      if (toggleTheme) {
+        const themes: Array<'default' | 'muted' | 'accent'> = ['default', 'muted', 'accent'];
+        const currentIndex = themes.indexOf(currentTheme);
+        const nextIndex = (currentIndex + 1) % themes.length;
+        setCurrentTheme(themes[nextIndex]);
+      }
+    };
+
     return (
       <Component
         ref={ref}
         className={cn(
+          // Base sizing
+          fontSizeClasses[`h${level}`],
           // Apply default styles based on level if variant not specified
           !variant && `text-heading-${defaultVariant}`,
           // Apply variant if specified
           variant && `text-${variant}`,
           // Theme styles
-          themeClasses[theme],
+          themeClasses[currentTheme],
           // If lightweight, override font weight
           lightweight && 'font-normal',
           // Apply margin trim classes
@@ -79,8 +95,14 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
           trimBottom && 'mb-0',
           // Apply responsive classes
           ...responsiveClasses,
+          // Add cursor-pointer if theme is toggleable
+          toggleTheme && 'cursor-pointer',
           className
         )}
+        onClick={(e) => {
+          handleThemeToggle();
+          onClick?.(e);
+        }}
         {...props}
       >
         {children}
@@ -92,3 +114,4 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
 Heading.displayName = 'Heading';
 
 export default Heading;
+
