@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import { ToastProvider, useToast } from '../components/Toast/ToastProvider';
 import Heading, { HeadingThemeProvider } from '../components/Typography/Heading';
 import Paragraph from '../components/Typography/Paragraph';
@@ -11,6 +12,12 @@ import { Search, Info, Check, X, AlertTriangle, AlertCircle } from 'lucide-react
 const DesignSystemShowcase = () => {
   const { showToast } = useToast();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  
+  // Add state for select menus
+  const [defaultSelectValue, setDefaultSelectValue] = useState<string>('');
+  const [selectedFruit, setSelectedFruit] = useState<string>('banana');
+  const [selectedSize, setSelectedSize] = useState<string>('');
+  const [errorSelectValue, setErrorSelectValue] = useState<string>('');
   
   const showInfoToast = () => {
     showToast({
@@ -181,6 +188,8 @@ const DesignSystemShowcase = () => {
                       { value: 'option3', label: 'Option 3' },
                     ]}
                     placeholder="Select an option"
+                    value={defaultSelectValue}
+                    onChange={setDefaultSelectValue}
                   />
                 </div>
                 
@@ -193,7 +202,8 @@ const DesignSystemShowcase = () => {
                       { value: 'banana', label: 'Banana' },
                       { value: 'orange', label: 'Orange' },
                     ]}
-                    defaultValue="banana"
+                    value={selectedFruit}
+                    onChange={setSelectedFruit}
                   />
                 </div>
                 
@@ -208,6 +218,8 @@ const DesignSystemShowcase = () => {
                     ]}
                     placeholder="Select a size"
                     helperText="Choose the size that fits you best."
+                    value={selectedSize}
+                    onChange={setSelectedSize}
                   />
                 </div>
                 
@@ -222,6 +234,8 @@ const DesignSystemShowcase = () => {
                     placeholder="Select an option"
                     state="error"
                     errorMessage="This field is required."
+                    value={errorSelectValue}
+                    onChange={setErrorSelectValue}
                   />
                 </div>
                 
