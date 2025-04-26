@@ -1,73 +1,56 @@
-# Welcome to your Lovable project
+# 🚀 Enterprise Design System
 
-## Project info
+A scalable, accessible, and themeable Design System built with **React**, **TypeScript**, **TailwindCSS**, and **Storybook**, designed for B2B enterprise-grade applications.
 
-**URL**: https://lovable.dev/projects/61bf19eb-eb3c-4419-b3e0-50c32d30e675
+---
 
-## How can I edit this code?
+## 📚 Tech Stack
 
-There are several ways of editing your application.
+- **React** + **TypeScript** — UI logic and strict typing
+- **TailwindCSS** — Utility-first styling with dark mode and theming
+- **Storybook** — Component documentation and preview
+- **Chromatic** — Storybook deployment (optional)
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/61bf19eb-eb3c-4419-b3e0-50c32d30e675) and start prompting.
+## 🏗️ Project Structure
 
-Changes made via Lovable will be committed automatically to this repo.
 
-**Use your preferred IDE**
+- `components/` — All React components (each inside its own folder)
+- `tokens/` — Design tokens like font sizes, weights, line-heights
+- `utils/` — Theme helpers and utilities
+- `stories/` — Storybook stories and documentation
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🧱 Components Built
 
-Follow these steps:
+### Typography
+- Headings (H1–H6)
+- Paragraphs
+- Labels
+- Captions
+- Helper Text
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Data Entry Components
+- Text Input
+- Select Menu
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Feedback Components
+- Toast / Snackbar
+- Modal Dialog
 
-# Step 3: Install the necessary dependencies.
-npm i
+All components are fully **responsive**, **accessible (ARIA roles, keyboard navigation)**, and **theme-aware** (light/dark mode supported).
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+---
+
+## 📦 Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/your-username/enterprise-design-system.git
+cd enterprise-design-system
+npm install
+npm run storybook
 ```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/61bf19eb-eb3c-4419-b3e0-50c32d30e675) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
