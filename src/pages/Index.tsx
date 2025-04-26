@@ -1,6 +1,6 @@
 import React from 'react';
 import { ToastProvider, useToast } from '../components/Toast/ToastProvider';
-import Heading from '../components/Typography/Heading';
+import Heading, { HeadingThemeProvider } from '../components/Typography/Heading';
 import Paragraph from '../components/Typography/Paragraph';
 import TextInput from '../components/TextInput/TextInput';
 import SelectMenu from '../components/SelectMenu/SelectMenu';
