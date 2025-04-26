@@ -36,12 +36,15 @@ const Caption = React.forwardRef<HTMLParagraphElement, CaptionProps>(
       accent: 'text-primary',
     };
 
+    // Use dynamic class joining for the text sizing
+    const textSizeClass = variant === 'caption-lg' ? 'text-caption-lg' : 'text-caption-md';
+
     return (
       <p
         ref={ref}
         className={cn(
           // Base styles
-          `text-${variant}`,
+          textSizeClass,
           // Theme styles
           themeClasses[theme],
           // Apply margin trim classes

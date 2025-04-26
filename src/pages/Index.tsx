@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ToastProvider, useToast } from '../components/Toast/ToastProvider';
 import Heading from '../components/Typography/Heading';

@@ -4,7 +4,7 @@ import { cn } from '../../lib/utils';
 import { Check, Info, X, AlertCircle, AlertTriangle } from 'lucide-react';
 
 export type ToastVariant = 'info' | 'success' | 'warning' | 'error';
-export type ToastPosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center';
+export type ToastPosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center' | 'static';
 
 export interface ToastProps {
   /** Toast message content */
@@ -99,10 +99,14 @@ const Toast = ({
     'bottom-left': 'bottom-4 left-4',
     'top-center': 'top-4 left-1/2 -translate-x-1/2',
     'bottom-center': 'bottom-4 left-1/2 -translate-x-1/2',
+    'static': 'relative',
   };
   
   // Animation styles based on position
   const getAnimationStyle = () => {
+    if (position === 'static') {
+      return '';
+    }
     if (position.startsWith('top')) {
       return isLeaving ? 'animate-fade-out' : 'animate-slide-down';
     }
@@ -115,7 +119,7 @@ const Toast = ({
       aria-live={variant === 'error' ? 'assertive' : 'polite'}
       className={cn(
         'fixed z-50 flex w-full max-w-sm shadow-md rounded-lg border-l-4 overflow-hidden',
-        positionStyles[position],
+        position !== 'static' ? positionStyles[position] : 'relative',
         variantStyles[variant],
         getAnimationStyle(),
         className

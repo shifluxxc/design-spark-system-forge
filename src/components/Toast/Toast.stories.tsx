@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import Toast, { ToastProps } from './Toast';
 import { ToastProvider, useToast } from './ToastProvider';
-import { X } from 'lucide-react';
+import { X, Check, Info, AlertTriangle, AlertCircle } from 'lucide-react';
 
 export default {
   title: 'Design System/Feedback/Toast',
@@ -195,7 +194,6 @@ CustomDuration.parameters = {
   },
 };
 
-// ToastProvider Demo
 const ToastDemo = () => {
   const { showToast } = useToast();
   

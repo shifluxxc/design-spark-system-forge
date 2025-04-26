@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
 import ModalDialog from './ModalDialog';
+import { X } from 'lucide-react';
 
 export default {
   title: 'Design System/Feedback/ModalDialog',
